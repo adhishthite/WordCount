@@ -21,7 +21,7 @@ public class FileOperator implements Iterator, AutoCloseable {
 	/** Get the current line and move the iterator to the next line */
 	@Override public String next() {
 		String lineToReturn = nextLine;
-		
+
 		try {
 			nextLine = bufferedReader.readLine();
 		} catch (IOException e) {
