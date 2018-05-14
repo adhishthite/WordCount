@@ -1,15 +1,26 @@
+import java.util.*;
+
 import org.junit.runner.JUnitCore;
 import org.junit.runner.Result;
 import org.junit.runner.notification.Failure;
 
 public class TestRunner {
     public static void main(String[] args) {
-        Result result = JUnitCore.runClasses(TestWordOps.class);
+        List<Result> resultList = new ArrayList<Result>();
+        Boolean hasError = false;
+        
+        resultList.add(JUnitCore.runClasses(TestWordOps.class));
+        resultList.add(JUnitCore.runClasses(TestWordOpsThread.class));
 		
-        for (Failure failure : result.getFailures()) {
-            System.out.println(failure.toString());
+        for(Result result : resultList) {
+            for (Failure failure : result.getFailures()) {
+                hasError = true;
+                System.out.println(failure.toString());
+            }
         }
-		
-      System.out.println("\nTest Run Success:\t" + result.wasSuccessful());
+        
+        if(!hasError) {
+            System.out.println("\nTest Run Successful!");
+        }
     }
 }
