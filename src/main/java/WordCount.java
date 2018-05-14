@@ -4,11 +4,15 @@ import java.util.concurrent.*;
 import java.util.logging.*;
 import com.google.gson.*;
 
+import java.lang.management.*;
+
 public class WordCount {
-    private static final int THREADS = 4;
+    private static final int THREADS = 8;
     private static final Logger LOGGER = Logger.getLogger(WordCount.class.getName());
 
     public static void main(String[] args) throws Exception {
+    	
+    		long startTime = System.currentTimeMillis();
 
         LOGGER.info("Logger Name:\t" + LOGGER.getName());
 
@@ -53,14 +57,32 @@ public class WordCount {
         try (Writer writer = new FileWriter("Output-WordCount.json")) {
             Gson gson = new GsonBuilder().setPrettyPrinting().create();
             gson.toJson(wordsList, writer);
-
         } catch (Exception e) {
             LOGGER.log(Level.SEVERE, "Exception Occured:\n", e);
             System.out.println("Exception Occured. Check logs.");
         }
+        
+        /** PRINTING USAGE STATISTICS */
+        System.out.println("\n**** **** PROGRAM STATS **** ****\n");
+
+		long elapsedTime = System.currentTimeMillis() - startTime;
+		System.out.println("Total Running Time:\t" + elapsedTime + " ms");
               
-       Runtime runtime = Runtime.getRuntime();
-       runtime.gc();
-       System.out.println("\nTotal Memory Used:\t" + ((runtime.totalMemory() - runtime.freeMemory())/(1024L * 1024L)) + " MB");
-    }
+        Runtime runtime = Runtime.getRuntime();
+        runtime.gc();
+        System.out.println("Total Memory Used:\t" + ((runtime.totalMemory() - runtime.freeMemory())/(1024L * 1024L)) + " MB");
+		
+		System.out.println();
+        
+        for (MemoryPoolMXBean mpBean: ManagementFactory.getMemoryPoolMXBeans()) {
+			if (mpBean.getType() == MemoryType.HEAP) {
+				System.out.printf(
+					"Name: %s: %s\n",
+					mpBean.getName(), mpBean.getUsage()
+				);
+			}
+		}
+		
+		System.out.println("\n**** **** **** **** **** **** ****\n");
+	}
 }
