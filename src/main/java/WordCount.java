@@ -21,7 +21,7 @@ public class WordCount {
             @Override public void run() {
             		LOGGER.log(Level.INFO, "Thread ID:\t" + Thread.currentThread().getId());
                 try {
-                    FileOperator fileOperator = new FileOperator("test.txt");
+                    FileOperator fileOperator = new FileOperator(args[0]);
         
                     while(fileOperator.hasNext()) {
                         wordQueue.add(fileOperator.next());
