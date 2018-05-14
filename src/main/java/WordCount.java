@@ -5,7 +5,7 @@ import java.util.logging.*;
 import com.google.gson.*;
 
 public class WordCount {
-    private static final int THREADS = 8;
+    private static final int THREADS = 4;
     private static final Logger LOGGER = Logger.getLogger(WordCount.class.getName());
 
     public static void main(String[] args) throws Exception {
@@ -19,6 +19,7 @@ public class WordCount {
 
         new Thread() {
             @Override public void run() {
+            		LOGGER.log(Level.INFO, "Thread ID:\t" + Thread.currentThread().getId());
                 try {
                     FileOperator fileOperator = new FileOperator("test.txt");
         
