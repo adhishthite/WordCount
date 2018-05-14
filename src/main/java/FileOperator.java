@@ -3,6 +3,11 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.*;
 
+/**
+ * FileOperator
+ * 
+ * Read the input file.
+ */
 public class FileOperator implements Iterator, AutoCloseable {
 	private final BufferedReader bufferedReader;
 	private String nextLine;

@@ -69,7 +69,7 @@ public class WordCount {
 
 		Runtime runtime = Runtime.getRuntime();
 		runtime.gc();
-		System.out.println("Total Memory Used:\t" + ((runtime.totalMemory() - runtime.freeMemory()) / (1024 L * 1024 L)) + " MB");
+		System.out.println("Total Memory Used:\t" + ((runtime.totalMemory() - runtime.freeMemory()) / (1024L * 1024L)) + " MB");
 
 		System.out.println();
 
@@ -83,5 +83,7 @@ public class WordCount {
 		}
 
 		System.out.println("\n**** **** **** **** **** **** ****\n");
+
+		System.out.println("\nJSON Output File has been stored as Output-WordCount.json.");
 	}
 }
